@@ -16,8 +16,14 @@ Movie.init({
 // Test the Connection
 (async() => {
     try {
-        await sequelize.authenticate();
-        console.log('Connection to the database successful!');
+        // TEST THE CONNECTION, step 1
+        // await sequelize.authenticate();
+        // console.log('Connection to the database successful!');
+
+        // SYNCHRONIZE MODELS WITH THE DB, step 2
+        // Sync 'Movies' table
+        await Movie.sync(); // creates or updates tables based on model definition, here we are synchonizing an individual table
+
     } catch (error) {
         console.error('Error connecting to the database: ', error);
     }
