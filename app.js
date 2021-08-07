@@ -20,9 +20,14 @@ Movie.init({
         // await sequelize.authenticate();
         // console.log('Connection to the database successful!');
 
-        // SYNCHRONIZE MODELS WITH THE DB, step 2
+        // SYNCHRONIZE MODELS WITH THE DB, step 2a
         // Sync 'Movies' table
-        await Movie.sync(); // creates or updates tables based on model definition, here we are synchonizing an individual table
+        //await Movie.sync(); // creates or updates tables based on model definition, here we are synchonizing an individual table
+
+        // Sync *all* tables instead of just one, step 2b
+        await sequelize.sync(); //synch all models at once instead of one at a time
+
+        // NOTE : ^sync() issues a CREATE TABLE IF NOT EXISTS
 
     } catch (error) {
         console.error('Error connecting to the database: ', error);
