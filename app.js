@@ -25,9 +25,15 @@ Movie.init({
         //await Movie.sync(); // creates or updates tables based on model definition, here we are synchonizing an individual table
 
         // Sync *all* tables instead of just one, step 2b
-        await sequelize.sync(); //synch all models at once instead of one at a time
+        await sequelize.sync({ force: true }); //synch all models at once instead of one at a time
 
         // NOTE : ^sync() issues a CREATE TABLE IF NOT EXISTS
+
+        // {force: true}, refresh your database tables each time you start your app
+
+        // Calling sync({ force: true }) issues a DROP TABLE IF EXISTS statement, which completely deletes the table, before issuing the CREATE TABLE IF NOT EXISTS statement. In other words, it will drop a table that exists, each time you start your app, and recreate it from the model definition.
+
+
 
     } catch (error) {
         console.error('Error connecting to the database: ', error);
