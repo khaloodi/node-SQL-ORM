@@ -60,7 +60,7 @@ Movie.init({
         // title: 'The Incredibles'
         // });  
 
-        const movieInstances = await Promise.all([
+        const movieInstances = await Promise.all([ // Promise.all() method returns one fulfilled promise containing all of the Movie instances, which gets stored in the movieInstances variable
             Movie.create({
                 title: 'Toy Story'
             }),
@@ -69,7 +69,7 @@ Movie.init({
             }),
         ]);
         const moviesJSON = movieInstances.map(movie => movie.toJSON());
-        console.log(moviesJSON);
+        console.log(moviesJSON); // a combination of the .map() and .toJSON() methods to output the data to the console in JSON format
 
     } catch (error) {
         console.error('Error connecting to the database: ', error);
