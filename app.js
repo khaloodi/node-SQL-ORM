@@ -15,25 +15,35 @@ Movie.init({
 
 // Test the Connection
 (async() => {
+    // try {
+    // TEST THE CONNECTION, step 1
+    // await sequelize.authenticate();
+    // console.log('Connection to the database successful!');
+
+    // SYNCHRONIZE MODELS WITH THE DB, step 2a
+    // Sync 'Movies' table
+    //await Movie.sync(); // creates or updates tables based on model definition, here we are synchonizing an individual table
+
+    // Sync *all* tables instead of just one, step 2b
+    await sequelize.sync({ force: true }); //synch all models at once instead of one at a time
+
+    // NOTE : ^sync() issues a CREATE TABLE IF NOT EXISTS
+
+    // {force: true}, refresh your database tables each time you start your app
+
+    // Calling sync({ force: true }) issues a DROP TABLE IF EXISTS statement, which completely deletes the table, before issuing the CREATE TABLE IF NOT EXISTS statement. In other words, it will drop a table that exists, each time you start your app, and recreate it from the model definition.
     try {
-        // TEST THE CONNECTION, step 1
-        // await sequelize.authenticate();
-        // console.log('Connection to the database successful!');
+        // Instance of the Movie class represents a database row
+        const movie = await Movie.create({
+            title: 'Toy Story',
+        });
 
-        // SYNCHRONIZE MODELS WITH THE DB, step 2a
-        // Sync 'Movies' table
-        //await Movie.sync(); // creates or updates tables based on model definition, here we are synchonizing an individual table
+        /*
+        Movie.create() builds a new model instance, which represents a database row, and automatically stores the instance's data. It returns a Promise object, which resolves or rejects based on the successful or failed interaction with your database.
 
-        // Sync *all* tables instead of just one, step 2b
-        await sequelize.sync({ force: true }); //synch all models at once instead of one at a time
-
-        // NOTE : ^sync() issues a CREATE TABLE IF NOT EXISTS
-
-        // {force: true}, refresh your database tables each time you start your app
-
-        // Calling sync({ force: true }) issues a DROP TABLE IF EXISTS statement, which completely deletes the table, before issuing the CREATE TABLE IF NOT EXISTS statement. In other words, it will drop a table that exists, each time you start your app, and recreate it from the model definition.
-
-
+        create() requires an object with properties that map to the model attributes (the ones defined in Movie.init(), for example). Our Movie model currently has one attribute, title, so let's create a new row with a movie title.
+        */
+        console.log(movie.toJSON());
 
     } catch (error) {
         console.error('Error connecting to the database: ', error);
