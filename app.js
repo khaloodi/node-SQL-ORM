@@ -35,22 +35,41 @@ Movie.init({
     // Calling sync({ force: true }) issues a DROP TABLE IF EXISTS statement, which completely deletes the table, before issuing the CREATE TABLE IF NOT EXISTS statement. In other words, it will drop a table that exists, each time you start your app, and recreate it from the model definition.
     try {
         // Instance of the Movie class represents a database row
-        const movie = await Movie.create({
-            title: 'Toy Story',
-        });
+        // const movie = await Movie.create({
+        //     title: 'Toy Story',
+        // });
 
         /*
         Movie.create() builds a new model instance, which represents a database row, and automatically stores the instance's data. It returns a Promise object, which resolves or rejects based on the successful or failed interaction with your database.
 
         create() requires an object with properties that map to the model attributes (the ones defined in Movie.init(), for example). Our Movie model currently has one attribute, title, so let's create a new row with a movie title.
         */
-        console.log(movie.toJSON());
+        // console.log(movie.toJSON());
 
         // New entry
-        const movie2 = await Movie.create({
-            title: 'The Incredibles'
-        });
-        console.log(movie2.toJSON());
+        // const movie2 = await Movie.create({
+        //     title: 'The Incredibles'
+        // });
+        // console.log(movie2.toJSON());
+
+        // await Movie.create({
+        // title: 'Toy Story'
+        // });
+
+        // await Movie.create({
+        // title: 'The Incredibles'
+        // });  
+
+        const movieInstances = await Promise.all([
+            Movie.create({
+                title: 'Toy Story'
+            }),
+            Movie.create({
+                title: 'The Incredibles'
+            }),
+        ]);
+        const moviesJSON = movieInstances.map(movie => movie.toJSON());
+        console.log(moviesJSON);
 
     } catch (error) {
         console.error('Error connecting to the database: ', error);
