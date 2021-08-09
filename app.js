@@ -2,7 +2,8 @@ const Sequelize = require('sequelize');
 
 const sequelize = new Sequelize({
     dialect: 'sqlite', // version of SQL you're using
-    storage: 'movies.db' // specify the file path or the storage engine for SQLite
+    storage: 'movies.db', // specify the file path or the storage engine for SQLite
+    logging: true // disable logging
 });
 
 // Movie model
@@ -44,6 +45,12 @@ Movie.init({
         create() requires an object with properties that map to the model attributes (the ones defined in Movie.init(), for example). Our Movie model currently has one attribute, title, so let's create a new row with a movie title.
         */
         console.log(movie.toJSON());
+
+        // New entry
+        const movie2 = await Movie.create({
+            title: 'The Incredibles'
+        });
+        console.log(movie2.toJSON());
 
     } catch (error) {
         console.error('Error connecting to the database: ', error);
