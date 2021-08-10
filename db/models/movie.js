@@ -32,7 +32,13 @@ module.exports = (sequelize) => {
             validate: {
                 notNull: {
                     msg: 'Please provide a value for "runtime"',
-                }
+                },
+                min: {
+                    args: 1, // args represents the value (argument) passed to the validator. The value you specify is used to check if a column value is valid or invalid
+                    // In this case, if the runtime number value is less than the number defined in args (1), it will throw a validation error
+                    // The max property, on the other hand, checks if a value is less than or equal to the value specified in args.
+                    msg: 'Please provide a value greater than "0" for "runtime"',
+                },
             },
         },
         releaseDate: {
