@@ -4,7 +4,18 @@ const Sequelize = require('sequelize');
 module.exports = (sequelize) => {
     class Movie extends Sequelize.Model {}
     Movie.init({
-        title: Sequelize.STRING,
+        title: {
+            type: Sequelize.STRING
+        },
+        runtime: {
+            type: Sequelize.INTEGER
+        },
+        releaseDate: {
+            type: Sequelize.DATEONLY
+        },
+        isAvailableOnVHS: {
+            type: Sequelize.BOOLEAN
+        },
     }, { sequelize });
 
     return Movie;
