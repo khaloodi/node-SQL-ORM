@@ -46,7 +46,7 @@ const { Movie, Person } = db.models;
             isAvailableOnVHS: false,
         });
         // The build() method builds a non-persistent model instance. It returns an unsaved object, which you explicitly have to save to the database. Creating a record with build() is a two-step process: you build an instance, then save it.
-        await movie3.save(); // save the record
+        await movie3.save(); // save the record, save() validates the instance, and if the validation passes, it persists it to the database. save() also saves changed fields only -- it will do nothing if no fields changed
         console.log(movie3.toJSON());
     } catch (error) {
         // console.error('Error connecting to the database: ', error);
