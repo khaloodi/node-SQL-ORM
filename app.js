@@ -37,6 +37,17 @@ const { Movie, Person } = db.models;
             lastName: 'Hanks',
         });
         console.log(person.toJSON());
+
+        // New instance
+        const movie3 = await Movie.build({
+            title: 'Toy Story 3',
+            runtime: 103,
+            releaseDate: '2010-06-18',
+            isAvailableOnVHS: false,
+        });
+        // The build() method builds a non-persistent model instance. It returns an unsaved object, which you explicitly have to save to the database. Creating a record with build() is a two-step process: you build an instance, then save it.
+        await movie3.save(); // save the record
+        console.log(movie3.toJSON());
     } catch (error) {
         // console.error('Error connecting to the database: ', error);
         if (error.name === 'SequelizeValidationError') {
