@@ -21,6 +21,9 @@ const db = {
 
 db.models.Movie = require('./models/movie.js')(sequelize);
 
+// import new model
+db.models.Person = require('./models/person.js')(sequelize);
+
 module.exports = db;
 
 // The file exports the db object, which holds the Sequelize and database configurations, as well as the models. Exposing the Sequelize package wherever you import models into your code means that you'll have all of Sequelize's methods and functionality to use.
