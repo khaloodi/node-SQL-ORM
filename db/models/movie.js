@@ -47,7 +47,11 @@ module.exports = (sequelize) => {
             validate: {
                 notNull: {
                     msg: 'Please provide a value for "releaseDate"',
-                }
+                },
+                isAfter: { // allow only a releaseDate value that is after a specific date
+                    args: '1895-12-27',
+                    msg: 'Please provide a value on or after "1895-12-28" for "releaseDate"',
+                },
             },
         },
         isAvailableOnVHS: {
