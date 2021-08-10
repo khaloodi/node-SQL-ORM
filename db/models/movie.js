@@ -27,7 +27,8 @@ module.exports = (sequelize) => {
         },
         isAvailableOnVHS: {
             type: Sequelize.BOOLEAN,
-            allowNull: false, // disallow null
+            allowNull: false, // disallow null,
+            defaultValue: false, // set default value
         },
     }, { sequelize });
 
