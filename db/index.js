@@ -5,7 +5,12 @@ const Sequelize = require('sequelize');
 const sequelize = new Sequelize({
     dialect: 'sqlite',
     storage: 'movies.db',
-    logging: false
+    logging: false,
+    // global options
+    define: {
+        freezeTableName: true,
+        timestamps: false,
+    },
 });
 
 const db = {
