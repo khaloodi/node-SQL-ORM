@@ -1,3 +1,4 @@
+// require the 'sequelize' module and export the initialized Movie model
 const Sequelize = require('sequelize');
 
 module.exports = (sequelize) => {

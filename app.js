@@ -62,11 +62,12 @@ const { Movie, Person } = db.models;
             }
         });
         // SELECT * FROM People WHERE lastName = 'Hanks';
-        console.log(movies.map(movie => movie.toJSON())); // findAll method retrieves a collection of all records, instead of a single record
+        console.log(people.map(person => person.toJSON())); // findAll method retrieves a collection of all records, instead of a single record
 
         const movies = await Movie.findAll({
+            attributes: ['id', 'title'], // return only id and title
             where: {
-                runtime: 92,
+                // runtime: 92,
                 isAvailableOnVHS: true
             }
         });
