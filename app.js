@@ -1,7 +1,7 @@
 // app.js file should now contain only code related to syncing models, querying data and CRUD operations
-
 const db = require('./db');
 const { Movie, Person } = db.models;
+const { Op } = db.Sequelize; // extract the property Op from db.Sequelize
 
 (async() => {
     await db.sequelize.sync({ force: true });
@@ -68,11 +68,30 @@ const { Movie, Person } = db.models;
             attributes: ['id', 'title'], // return only id and title
             where: {
                 // runtime: 92,
-                isAvailableOnVHS: true
+                isAvailableOnVHS: true,
+                releaseDate: {
+                    [Op.gte]: '2004-01-01' // greater than or equal to the date
+                },
+                runtime: {
+                    [Op.gt]: 95, // greater than 95
+                },
             }
         });
         // SELECT * FROM Movies WHERE runtime = 92 AND isAvailableOnVHS = true;
         console.log(movies.map(movie => movie.toJSON()));
+
+        const ordering = await Movie.findAll({
+            attributes: ['id', 'title'],
+            where: {
+                title: {
+                    [Op.endsWith]: 'story' // return all movies with a title that ends with 'story'
+                },
+            },
+            order: [
+                    ['id', 'DESC'] // specify the order of the returned results, 'ASC' for ascending order
+                ] // IDs in descending order
+        });
+        console.log(ordering.map(movie => movie.toJSON()));
 
     } catch (error) {
         // console.error('Error connecting to the database: ', error);
