@@ -66,8 +66,11 @@ module.exports = (sequelize) => {
             // freezeTableName: true, // disable plural table names, changes the table name from 'Movies' to 'Movie'
             modelName: 'movie', // set model name to 'movie'; table name will be 'movies' w/o freezeTableName
             tableName: 'movies', // table name change
+            paranoid: true, // enable "soft" deletes
             sequelize
         });
+
+    // Setting the paranoid option to true means that a destroyed record will not be physically deleted from the database, but it will also not be returned in future queries.
 
     return Movie;
 };

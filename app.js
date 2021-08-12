@@ -103,9 +103,26 @@ const { Op } = db.Sequelize; // extract the property Op from db.Sequelize
         // Update a Record with update():
         const toyStory3_ = await Movie.findByPk(3);
         await toyStory3_.update({
-            isAvailableOnVHS: false,
-        });
+            title: 'Trinket Tale 3', // this will be ignored
+            isAvailableOnVHS: true,
+        }, { fields: ['isAvailableOnVHS'] }); // an options object as a second argument (optional), allow/disallow (or whitelist) columns to update is useful when you want to ensure that users cannot pass objects with columns that should not be updated via a form, for example)
+
         console.log(toyStory3_.get({ plain: true }));
+
+        // Delete a Movie
+
+        // Find a record
+        const toyStory = await Movie.findByPk(1);
+
+        // Delete a record
+        await toyStory.destroy();
+
+        // Find and log all movies
+        const movies1 = await Movie.findAll();
+        console.log(movies1.map(movie => movie.toJSON()));
+
+        // Logical / "Soft" Deletes vs. Physical Deletes
+
 
     } catch (error) {
         // console.error('Error connecting to the database: ', error);
