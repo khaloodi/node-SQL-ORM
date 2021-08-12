@@ -93,6 +93,20 @@ const { Op } = db.Sequelize; // extract the property Op from db.Sequelize
         });
         console.log(ordering.map(movie => movie.toJSON()));
 
+        // Update a Record with save():
+        const toyStory3 = await Movie.findByPk(3);
+        toyStory3.isAvailableOnVHS = true; // updates the isAvailableOnVHS value of the toyStory3 instance using dot notation
+        await toyStory3.save();
+
+        console.log(toyStory3.get({ plain: true })); // Note: When converting an instance or collection of instances to JSON, calling get({ plain: true}) returns the same as calling .toJSON() – a plain object with just the model attributes and values.
+
+        // Update a Record with update():
+        const toyStory3_ = await Movie.findByPk(3);
+        await toyStory3_.update({
+            isAvailableOnVHS: false,
+        });
+        console.log(toyStory3_.get({ plain: true }));
+
     } catch (error) {
         // console.error('Error connecting to the database: ', error);
         if (error.name === 'SequelizeValidationError') {
